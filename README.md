@@ -1,5 +1,8 @@
 # Math Tasks Generator
 
+![Math Tasks Generator App](https://github.com/bartekcostam/simpleMathTasksGenerator/assets/20500755/185bd420-3203-478f-8607-d99970b42d24)
+
+
 ## Overview
 Math Tasks Generator is a web application designed to create simple math tasks for children. It's built using React and is ideal for educational purposes, especially for young learners. This app allows users to specify a range and generate a set of arithmetic problems, making learning fun and interactive.
 
@@ -26,7 +29,7 @@ Contributions to the Math Tasks Generator are welcome!
 This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
-For any inquiries or suggestions, feel free to contact me at [your-email@example.com].
+For any inquiries or suggestions, feel free to contact me at [bartlomiej.wydmuch@gmail.com].
 
 
 
