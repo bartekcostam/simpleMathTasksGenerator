@@ -35,9 +35,10 @@ function App() {
         <button type='submit'>Generate tasks</button>
         <input type='checkbox' name='Two columns' id='twoColums' />
         </form>
-      </main>
+        </main>
 
       <Numbers tasks={tasks}/>
+      
     </div>
   );
 }
