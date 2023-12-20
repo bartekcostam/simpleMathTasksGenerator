@@ -4,6 +4,7 @@ import {useState} from 'react'
 import NumberList from './pages/NumberList';
 import GenerateCalculations from './pages/GenerateCalculations';
 import Home from './pages/Home';
+import MissingNumbers from './pages/MissingNumbers';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
     <Route path="/" element={<Home />} />
       <Route path="/numberlist" element={<NumberList />} />
       <Route path="/generatecalculations" element={<GenerateCalculations />} />
+      <Route path="/missingnumbers" element={<MissingNumbers />} />
     </Routes>
     
     

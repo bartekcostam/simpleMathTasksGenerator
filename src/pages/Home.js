@@ -10,7 +10,7 @@ const Home = () => {
     <hr></hr>
     <a href="/numberlist">Number list</a>
     <hr></hr>
-    <a href="/numberlist">Missing numbers</a>
+    <a href="/missingnumbers">Missing numbers</a>
     <hr></hr>
     <a href="/numberlist">Numbers comparision</a>
     <hr></hr>
