@@ -26,10 +26,6 @@ const NumberList = () => {
 
     {renderBoxes()}
     
-  
-
-    
-    
     </div>
   )
 }
