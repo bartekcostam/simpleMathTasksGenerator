@@ -5,6 +5,7 @@ import NumberList from './pages/NumberList';
 import GenerateCalculations from './pages/GenerateCalculations';
 import Home from './pages/Home';
 import MissingNumbers from './pages/MissingNumbers';
+import NumberCompare from './pages/NumberCompare';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
       <Route path="/numberlist" element={<NumberList />} />
       <Route path="/generatecalculations" element={<GenerateCalculations />} />
       <Route path="/missingnumbers" element={<MissingNumbers />} />
+      <Route path="/numbercompare" element={<NumberCompare />} />
     </Routes>
     
     

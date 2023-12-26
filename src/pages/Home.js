@@ -12,7 +12,7 @@ const Home = () => {
     <hr></hr>
     <a href="/missingnumbers">Missing numbers</a>
     <hr></hr>
-    <a href="/numberlist">Numbers comparision</a>
+    <a href="/numbercompare">Numbers comparision</a>
     <hr></hr>
     <a href="/numberlist">Basic geometry</a>
     <hr></hr>
