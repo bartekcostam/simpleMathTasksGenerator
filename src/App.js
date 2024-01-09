@@ -6,6 +6,7 @@ import GenerateCalculations from './pages/GenerateCalculations';
 import Home from './pages/Home';
 import MissingNumbers from './pages/MissingNumbers';
 import NumberCompare from './pages/NumberCompare';
+import Substraction from './pages/Substraction';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
       <Route path="/generatecalculations" element={<GenerateCalculations />} />
       <Route path="/missingnumbers" element={<MissingNumbers />} />
       <Route path="/numbercompare" element={<NumberCompare />} />
+      <Route path="/substraction" element={<Substraction />} />
     </Routes>
     
     
