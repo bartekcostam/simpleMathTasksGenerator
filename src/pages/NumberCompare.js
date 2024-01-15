@@ -10,8 +10,8 @@ const NumberCompare = () => {
     const generateNumberPairs = () => {
         let pairs = [];
         for (let i = 0; i < 200; i++) {
-            const num1 = Math.floor(Math.random() * 100);
-            const num2 = Math.floor(Math.random() * 100);
+            const num1 = Math.floor(Math.random() * 20) + 1;
+            const num2 = Math.floor(Math.random() * 15) +2;
             pairs.push(
                 <div key={i} className="number-pair">
                     <span>{num1}</span>

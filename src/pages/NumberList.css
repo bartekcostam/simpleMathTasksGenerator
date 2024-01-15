@@ -9,12 +9,14 @@ body {
 .box{
     
     
-    width: 30px;
+    
     height: 30px;
     margin: 10px;
     display: inline-block;
     border-style: dashed;
     justify-content:center;
     text-align: center;
-    padding:5px;
+    padding:15px;
     }
+
+   

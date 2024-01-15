@@ -23,7 +23,7 @@ const NumberList = () => {
     <div>
     <input type="number" placeholder='number to ...' onChange={handleInputChange} />
     <div>NumberList</div>
-
+   
     {renderBoxes()}
     
     </div>
