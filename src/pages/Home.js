@@ -19,6 +19,8 @@ const Home = () => {
     <a href="/set">Sets</a>
     <hr></hr>
     <a href="/substraction">Substraction</a>
+    <hr></hr>
+    <a href="/clock">Clock</a>
 
 
 

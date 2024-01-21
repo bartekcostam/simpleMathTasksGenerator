@@ -8,6 +8,7 @@ import MissingNumbers from './pages/MissingNumbers';
 import NumberCompare from './pages/NumberCompare';
 import Substraction from './pages/Substraction';
 import Set from './pages/Set';
+import Clock from './pages/Clock';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
       <Route path="/numbercompare" element={<NumberCompare />} />
       <Route path="/substraction" element={<Substraction />} />
       <Route path="/set" element={<Set />} />
+      <Route path="/clock" element={<Clock />} />
     </Routes>
     
     
