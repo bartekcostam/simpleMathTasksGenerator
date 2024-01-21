@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import MissingNumbers from './pages/MissingNumbers';
 import NumberCompare from './pages/NumberCompare';
 import Substraction from './pages/Substraction';
+import Set from './pages/Set';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       <Route path="/missingnumbers" element={<MissingNumbers />} />
       <Route path="/numbercompare" element={<NumberCompare />} />
       <Route path="/substraction" element={<Substraction />} />
+      <Route path="/set" element={<Set />} />
     </Routes>
     
     

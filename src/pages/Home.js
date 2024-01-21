@@ -16,7 +16,7 @@ const Home = () => {
     <hr></hr>
     <a href="/numberlist">Basic geometry</a>
     <hr></hr>
-    <a href="/numberlist">Sets</a>
+    <a href="/set">Sets</a>
     <hr></hr>
     <a href="/substraction">Substraction</a>
 
