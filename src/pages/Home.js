@@ -6,7 +6,9 @@ const Home = () => {
     <div className="mainPage">
     <div>Home</div>
     <hr></hr>
-    <a href="/generatecalculations">Generate</a>
+    <a href="/generatecalculations">Generate additional </a>
+    <hr></hr>
+    <a href="/generatesubstractions">Generate substraction </a>
     <hr></hr>
     <a href="/numberlist">Number list</a>
     <hr></hr>
@@ -21,6 +23,8 @@ const Home = () => {
     <a href="/substraction">Substraction</a>
     <hr></hr>
     <a href="/clock">Clock</a>
+    <hr></hr>
+    <a href="/thermometer">Thermometer Generator</a>
 
 
 

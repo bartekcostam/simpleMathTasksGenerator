@@ -25,10 +25,10 @@ const NumberCompare = () => {
 
     return (
         <div className="container">
-            <div className="column">{numberPairs.slice(0, 50)}</div>
-            <div className="column">{numberPairs.slice(50, 100)}</div>
-            <div className="column">{numberPairs.slice(100, 150)}</div>
-            <div className="column">{numberPairs.slice(150, 200)}</div>
+            <div className="column">{numberPairs.slice(0, 49)}</div>
+            <div className="column">{numberPairs.slice(50, 99)}</div>
+            <div className="column">{numberPairs.slice(100, 149)}</div>
+            <div className="column">{numberPairs.slice(150, 199)}</div>
         </div>
 
     );
