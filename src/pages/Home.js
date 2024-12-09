@@ -25,6 +25,8 @@ const Home = () => {
     <a href="/clock">Clock</a>
     <hr></hr>
     <a href="/thermometer">Thermometer Generator</a>
+    <hr></hr>
+    <a href="/numberaxis">Number axis</a>
 
 
 

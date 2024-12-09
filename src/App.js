@@ -11,6 +11,7 @@ import Substraction from './pages/Substraction';
 import Set from './pages/Set';
 import Clock from './pages/Clock';
 import ThermometerPage from './pages/ThermometerPage';
+import NumberAxis from './pages/NumberAxis';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
       <Route path="/set" element={<Set />} />
       <Route path="/clock" element={<Clock />} />
       <Route path="/thermometer" element={<ThermometerPage />} />
+      <Route path="/numberaxis" element={<NumberAxis />} />
     </Routes>
     
     
