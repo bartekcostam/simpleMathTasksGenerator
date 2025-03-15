@@ -1,0 +1,603 @@
+// jest-dom adds custom jest matchers for asserting on DOM nodes.
+// allows you to do things like:
+// expect(element).toHaveTextContent(/react/i)
+// learn more: https://github.com/testing-library/jest-dom
+import '@testing-library/jest-dom';
+import './App.css';
+import {Routes, Route} from 'react-router-dom'
+import {useState} from 'react'
+import NumberList from './pages/NumberList';
+import GenerateCalculations from './pages/GenerateCalculations';
+import GenerateSubstractions from './pages/GenerateSubstractions';
+import Home from './pages/Home';
+import MissingNumbers from './pages/MissingNumbers';
+import NumberCompare from './pages/NumberCompare';
+import Substraction from './pages/Substraction';
+import Set from './pages/Set';
+import Clock from './pages/Clock';
+import ThermometerPage from './pages/ThermometerPage';
+import NumberAxis from './pages/NumberAxis';
+
+
+function App() {
+
+
+  return (
+    <div className="App">
+    <Routes>
+    <Route path="/" element={<Home />} />
+      <Route path="/numberlist" element={<NumberList />} />
+      <Route path="/generatecalculations" element={<GenerateCalculations />} />
+      <Route path="/generatesubstractions" element={<GenerateSubstractions />} />
+      <Route path="/missingnumbers" element={<MissingNumbers />} />
+      <Route path="/numbercompare" element={<NumberCompare />} />
+      <Route path="/substraction" element={<Substraction />} />
+      <Route path="/set" element={<Set />} />
+      <Route path="/clock" element={<Clock />} />
+      <Route path="/thermometer" element={<ThermometerPage />} />
+      <Route path="/numberaxis" element={<NumberAxis />} />
+    </Routes>
+    
+    
+      
+    </div>
+  );
+}
+
+export default App;
+import { render, screen } from '@testing-library/react';
+import App from './App';
+
+test('renders learn react link', () => {
+  render(<App />);
+  const linkElement = screen.getByText(/learn react/i);
+  expect(linkElement).toBeInTheDocument();
+});
+const reportWebVitals = onPerfEntry => {
+  if (onPerfEntry && onPerfEntry instanceof Function) {
+    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+      getCLS(onPerfEntry);
+      getFID(onPerfEntry);
+      getFCP(onPerfEntry);
+      getLCP(onPerfEntry);
+      getTTFB(onPerfEntry);
+    });
+  }
+};
+
+export default reportWebVitals;
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import {BrowserRouter} from 'react-router-dom'
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+    <App />
+    </BrowserRouter>
+    
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+import './App.css';
+import Numbers from '../components/Numbers';
+import {useState} from 'react'
+
+
+function GenerateSubstractions() {
+  const [from, setFrom] = useState(0)
+  const [to, setTo] = useState(10)
+  const [numTasks, setNumTasks] = useState(5)
+  const [tasks, setTasks] = useState([])
+
+
+  const handleGenerateTasks = (e) => {
+    console.log(e.target)
+    e.preventDefault()
+    const generateTasks = []
+    for (let i = 0; i < numTasks; i++) {
+      const num1 = Math.floor(Math.random() * (to - from + 1 ))
+      const num2 = Math.floor(Math.random() * (to - from + 1 ))
+
+      generateTasks.push(`${num1} - ${num2} =`)
+    }
+    setTasks(generateTasks)
+  }
+
+
+  return (
+    <div className="App">
+    
+      <main>
+        <header>Generate calculations...</header>
+        <form onSubmit={handleGenerateTasks}>
+        <input placeholder='from' value={from} onChange={(e) => setFrom(+e.target.value)} />
+        <input placeholder='to' value={to} onChange={(e) => setTo(+e.target.value)}></input>
+        <input placeholder='how many tasks?' value={numTasks} onChange={(e) => setNumTasks(+e.target.value)}></input>
+        <button type='submit'>Generate tasks</button>
+        <input type='checkbox' name='Two columns' id='twoColums' />
+        </form>
+        </main>
+
+      <Numbers tasks={tasks}/>
+      
+    </div>
+  );
+}
+
+export default GenerateSubstractions;
+import React, { useState } from 'react';
+import Thermometer from '../components/Thermometer';
+
+const ThermometerPage = () => {
+  const [minTemp, setMinTemp] = useState(-10);
+  const [maxTemp, setMaxTemp] = useState(20);
+  const [numberOfThermometers, setNumberOfThermometers] = useState(5);
+  const [temperatures, setTemperatures] = useState([]);
+
+  const generateTemperatures = () => {
+    const temps = [];
+    for (let i = 0; i < numberOfThermometers; i++) {
+      const temp = Math.floor(Math.random() * (maxTemp - minTemp + 1)) + minTemp;
+      temps.push(temp);
+    }
+    setTemperatures(temps);
+  };
+
+  return (
+    <div style={{ textAlign: 'center', fontSize: '20px' }}>
+      <h1>Thermometer Generator</h1>
+      <div>
+        <label>
+          Temperature From:
+          <input
+            type="number"
+            value={minTemp}
+            onChange={(e) => setMinTemp(parseInt(e.target.value))}
+            style={{ margin: '10px' }}
+          />
+        </label>
+        <label>
+          Temperature To:
+          <input
+            type="number"
+            value={maxTemp}
+            onChange={(e) => setMaxTemp(parseInt(e.target.value))}
+            style={{ margin: '10px' }}
+          />
+        </label>
+        <label>
+          Number of Thermometers:
+          <input
+            type="number"
+            value={numberOfThermometers}
+            onChange={(e) => setNumberOfThermometers(parseInt(e.target.value))}
+            style={{ margin: '10px' }}
+          />
+        </label>
+        <br />
+        <button onClick={generateTemperatures}>Generate</button>
+      </div>
+      <div>
+        {temperatures.map((temp, index) => (
+          <Thermometer key={index} temperature={temp} minTemp={minTemp} maxTemp={maxTemp} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ThermometerPage;
+import React from 'react'
+import './Substraction.css'
+
+const Substraction = () => {
+
+
+const images = (n) => {
+  let arr = []
+  const num = () => Math.floor(Math.random() * 2) + 1;
+
+  for (let x=0;x<n;x++) {
+    arr.push(<img src="./img/cake.jpg"></img>)
+  }
+  arr.push(<div className="minus" > - </div>)
+  arr.push(num())
+  arr.push(<div className="minus"> = </div>)
+  arr.push(<br></br>)
+  return arr
+}
+
+const num1 = () => Math.floor(Math.random() * 10) + 1;
+
+
+  return (
+    <div>
+    <div>Substraction</div>
+    <input placeholder="number"></input>
+    <br></br>
+    <br></br>
+
+    {images(num1())} 
+    {images(num1())} 
+    {images(num1())} 
+    {images(num1())} 
+    {images(num1())} 
+    {images(num1())} 
+    {images(num1())} 
+    {images(num1())} 
+    {images(num1())} 
+    
+    </div>
+  )
+}
+
+export default Substractionimport React, { useState } from 'react';
+
+const NumberAxis = () => {
+  const [numAxes, setNumAxes] = useState(1);
+  const [minStart, setMinStart] = useState(-10);
+  const [maxEnd, setMaxEnd] = useState(10);
+  const [step, setStep] = useState(1);
+  const [axesData, setAxesData] = useState([]);
+
+  const generateAxes = () => {
+    const newAxes = [];
+    for (let i = 0; i < numAxes; i++) {
+      const start = minStart; 
+      const end = maxEnd; 
+      const stepVal = step;
+
+      const values = [];
+      for (let v = start; v <= end; v += stepVal) {
+        values.push(v);
+      }
+
+      const hiddenCount = Math.floor(values.length / 3);
+      const hiddenIndices = new Set();
+      while (hiddenIndices.size < hiddenCount) {
+        hiddenIndices.add(Math.floor(Math.random() * values.length));
+      }
+
+      newAxes.push({ values, hiddenIndices });
+    }
+    setAxesData(newAxes);
+  };
+
+  return (
+    <div style={{ margin: '20px' }}>
+      <h2>Generate Number Axis Tasks</h2>
+      <p>Use this tool to create number line exercises for your students. Students will fill in the missing numbers on the axis.</p>
+      <div>
+        <label>Number of Axes: </label>
+        <input type="number" value={numAxes} onChange={(e) => setNumAxes(parseInt(e.target.value))}/>
+      </div>
+      <div>
+        <label>Start Value: </label>
+        <input type="number" value={minStart} onChange={(e) => setMinStart(parseInt(e.target.value))}/>
+      </div>
+      <div>
+        <label>End Value: </label>
+        <input type="number" value={maxEnd} onChange={(e) => setMaxEnd(parseInt(e.target.value))}/>
+      </div>
+      <div>
+        <label>Step: </label>
+        <input type="number" value={step} onChange={(e) => setStep(parseInt(e.target.value))}/>
+      </div>
+      <button onClick={generateAxes}>Generate</button>
+
+      <div style={{ marginTop: '50px' }}>
+        {axesData.map((axis, idx) => (
+          <div key={idx} style={{ marginBottom: '50px' }}>
+             {/* <h3>Axis {idx + 1}</h3> */}
+            
+            <div style={{height:'100px', position:'relative'}}>
+              {/* Centered horizontal line */}
+              <div style={{
+                position:'absolute',
+                top:'50%',
+                left:0,
+                right:0,
+                borderBottom:'2px solid black',
+                transform:'translateY(-50%)'
+              }}>
+              </div>
+              {/* Arrow on the right end */}
+              <div style={{
+                position:'absolute',
+                right:0,
+                top:'50%',
+                transform:'translateY(-50%)',
+                width:'0',
+                height:'0',
+                borderLeft:'10px solid black',
+                borderTop:'5px solid transparent',
+                borderBottom:'5px solid transparent'
+              }}></div>
+
+              {axis.values.map((val, i) => {
+                const totalRange = axis.values.length - 1;
+                const leftPercent = (i / totalRange) * 100;
+                return (
+                  <div key={i} style={{
+                    position:'absolute',
+                    left: `${leftPercent}%`,
+                    top:'60%',
+                    transform:'translate(-50%, -50%)',
+                    display:'flex',
+                    flexDirection:'column',
+                    alignItems:'center'
+                  }}>
+                    <div style={{ height:'30px', borderLeft:'2px solid black'}}></div>
+                    <div style={{ fontSize: '20px', marginTop:'5px'}}>
+                      {axis.hiddenIndices.has(i) ? '____' : val}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default NumberAxis;
+import React from 'react';
+import CanvasClock from '../components/CanvasClock';
+
+const Clock = () => {
+    // Generate random times for demonstration
+    const randomTimes = new Array(24).fill(null).map(() => ({
+        hours: Math.floor(Math.random() * 24),
+        minutes: Math.floor(Math.random() * 60),
+        seconds: Math.floor(Math.random() * 60),
+    }));
+
+    return (
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+            {randomTimes.map((time, index) => (
+                <CanvasClock key={index} time={time} />
+            ))}
+        </div>
+    );
+};
+
+export default Clock;
+import React, { useState, useEffect } from 'react';
+
+const NumberCompare = () => {
+    const [numberPairs, setNumberPairs] = useState([]);
+
+    useEffect(() => {
+        generateNumberPairs();
+    }, []);
+
+    const generateNumberPairs = () => {
+        let pairs = [];
+        for (let i = 0; i < 200; i++) {
+            const num1 = Math.floor(Math.random() * 50) + 5;
+            const num2 = Math.floor(Math.random() * 55) +2;
+            pairs.push(
+                <div key={i} className="number-pair">
+                    <span>{num1}</span>
+                    <span>...</span>
+                    <span>{num2}</span>
+                </div>
+            );
+        }
+        setNumberPairs(pairs);
+    };
+
+    return (
+        <div className="container">
+            <div className="column">{numberPairs.slice(0, 49)}</div>
+            <div className="column">{numberPairs.slice(50, 99)}</div>
+            <div className="column">{numberPairs.slice(100, 149)}</div>
+            <div className="column">{numberPairs.slice(150, 199)}</div>
+        </div>
+
+    );
+};
+
+export default NumberCompare;
+import React from 'react'
+import {Draw} from './../components/Draw'
+
+const Set = () => {
+  return (
+    <div>
+    <div>Set</div>
+    <Draw width={200} height={200}/>
+
+
+    </div>
+  )
+}
+
+export default Setimport React from 'react'
+import './Home.css'
+const Home = () => {
+  return (
+    <>
+    <div className="mainPage">
+    <div>Home</div>
+    <hr></hr>
+    <a href="/generatecalculations">Generate additional </a>
+    <hr></hr>
+    <a href="/generatesubstractions">Generate substraction </a>
+    <hr></hr>
+    <a href="/numberlist">Number list</a>
+    <hr></hr>
+    <a href="/missingnumbers">Missing numbers</a>
+    <hr></hr>
+    <a href="/numbercompare">Numbers comparision</a>
+    <hr></hr>
+    <a href="/numberlist">Basic geometry</a>
+    <hr></hr>
+    <a href="/set">Sets</a>
+    <hr></hr>
+    <a href="/substraction">Substraction</a>
+    <hr></hr>
+    <a href="/clock">Clock</a>
+    <hr></hr>
+    <a href="/thermometer">Thermometer Generator</a>
+    <hr></hr>
+    <a href="/numberaxis">Number axis</a>
+
+
+
+
+    </div>
+    
+    </>
+  )
+  
+}
+
+export default Homeimport './App.css';
+import Numbers from '../../src/components/Numbers';
+import {useState} from 'react'
+
+
+function GenerateCalculations() {
+  const [from, setFrom] = useState(0)
+  const [to, setTo] = useState(10)
+  const [numTasks, setNumTasks] = useState(5)
+  const [tasks, setTasks] = useState([])
+
+
+  const handleGenerateTasks = (e) => {
+    console.log(e.target)
+    e.preventDefault()
+    const generateTasks = []
+    for (let i = 0; i < numTasks; i++) {
+      const num1 = Math.floor(Math.random() * (to - from + 1 ))
+      const num2 = Math.floor(Math.random() * (to - from + 1 ))
+
+      generateTasks.push(`${num1} + ${num2} =`)
+    }
+    setTasks(generateTasks)
+  }
+
+
+  return (
+    <div className="App">
+    
+      <main>
+        <header>Generate calculations...</header>
+        <form onSubmit={handleGenerateTasks}>
+        <input placeholder='from' value={from} onChange={(e) => setFrom(+e.target.value)} />
+        <input placeholder='to' value={to} onChange={(e) => setTo(+e.target.value)}></input>
+        <input placeholder='how many tasks?' value={numTasks} onChange={(e) => setNumTasks(+e.target.value)}></input>
+        <button type='submit'>Generate tasks</button>
+        <input type='checkbox' name='Two columns' id='twoColums' />
+        </form>
+        </main>
+
+      <Numbers tasks={tasks}/>
+      
+    </div>
+  );
+}
+
+export default GenerateCalculations;
+import React from 'react'
+import { useState } from 'react'
+import './NumberList.css'
+
+
+
+
+const NumberList = () => {
+  const [numberList, setNumberList] = useState(0)
+
+  const handleInputChange = (event) => {
+    setNumberList(parseInt(event.target.value,10) || 0)
+  }
+
+  const renderBoxes = () => {
+    let boxes = []
+    for (let i = 0; i < numberList; i++) {
+      boxes.push(<div key={i} className="box">{i}</div>)
+    }
+    return boxes
+  }
+  return (
+    <div>
+    <input type="number" placeholder='number to ...' onChange={handleInputChange} />
+    <div>NumberList</div>
+   
+    {renderBoxes()}
+    
+    </div>
+  )
+}
+
+export default NumberListimport React, { useState } from 'react';
+import './MissingNumbers.css';
+
+const MissingNumbers = () => {
+  const [from, setFrom] = useState(0);
+  const [to, setTo] = useState(0);
+
+  const handleFromChange = (event) => {
+    setFrom(parseInt(event.target.value, 10));
+  };
+
+  const handleToChange = (event) => {
+    setTo(parseInt(event.target.value, 10));
+  };
+
+  const generateNumbers = () => {
+    let arr = [];
+    for (let i = from; i <= to; i++) {
+      const showNumber = Math.random() < 0.2;
+      arr.push(<div key={i} className="inline">{showNumber ? i : ''}</div>);
+    }
+    return arr;
+  };
+
+  return (
+    <div>
+      <div>Generate missing numbers</div>
+      <input type="number" placeholder="from" onChange={handleFromChange} />
+      <input type="number" placeholder="to" onChange={handleToChange} />
+      <button onClick={generateNumbers}>Generate</button>
+      <hr />
+      {generateNumbers()}
+      <hr />
+      {generateNumbers()}
+      <hr />
+      {generateNumbers()}
+      <hr />
+      {generateNumbers()}
+      <hr />
+      {generateNumbers()}
+      <hr />
+      {generateNumbers()}
+      <hr />
+      {generateNumbers()}
+      <hr />
+      {generateNumbers()}
+      <hr />
+      {generateNumbers()}
+      <hr />
+      {generateNumbers()}
+      <hr />
+      {generateNumbers()}
+      
+    </div>
+  );
+};
+
+export default MissingNumbers;

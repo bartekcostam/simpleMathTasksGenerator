@@ -27,6 +27,8 @@ const Home = () => {
     <a href="/thermometer">Thermometer Generator</a>
     <hr></hr>
     <a href="/numberaxis">Number axis</a>
+    <hr></hr>
+    <a href="/sudoku">Sudoku</a>
 
 
 
