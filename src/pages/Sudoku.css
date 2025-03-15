@@ -1,24 +1,29 @@
 /* src/pages/Sudoku.css */
-.sudoku-page {
+@page {
+    size: A4;
+    margin: 5mm;
+  }
+  
+  .sudoku-page {
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
   }
-  
+    
   .controls {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 15px;
     margin-bottom: 30px;
   }
-  
+    
   .controls label {
     display: flex;
     flex-direction: column;
     gap: 5px;
     font-size: 14px;
   }
-  
+    
   .controls input,
   .controls select {
     padding: 8px;
@@ -26,7 +31,7 @@
     border-radius: 4px;
     font-size: 14px;
   }
-  
+    
   button {
     grid-column: 1 / -1;
     padding: 10px 20px;
@@ -37,13 +42,13 @@
     cursor: pointer;
     font-size: 16px;
   }
-  
+    
   .boards-container {
     display: grid;
     gap: 20px;
     width: 100%;
   }
-  
+    
   .sudoku-board {
     break-inside: avoid;
     page-break-inside: avoid;
@@ -52,20 +57,20 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
-  
+    
   .sudoku-board h3 {
     margin: 0 0 10px 0;
     font-size: 14px;
     color: #666;
   }
-  
+    
   table {
     border-collapse: collapse;
     width: 100%;
     aspect-ratio: 1;
     border: 2px solid #333;
   }
-  
+    
   td {
     border: 1px solid #ddd;
     text-align: center;
@@ -74,32 +79,32 @@
     width: 11.11%;
     height: 11.11%;
   }
-  
+    
   /* Style dla różnych rozmiarów plansz */
   .sudoku-board[data-size="4x4"] tr:nth-child(2n) td {
     border-bottom: 2px solid #333;
   }
-  
+    
   .sudoku-board[data-size="4x4"] td:nth-child(2n) {
     border-right: 2px solid #333;
   }
-  
+    
   .sudoku-board[data-size="6x6"] tr:nth-child(3n) td {
     border-bottom: 2px solid #333;
   }
-  
+    
   .sudoku-board[data-size="6x6"] td:nth-child(3n) {
     border-right: 2px solid #333;
   }
-  
+    
   .sudoku-board[data-size="9x9"] tr:nth-child(3n) td {
     border-bottom: 2px solid #333;
   }
-  
+    
   .sudoku-board[data-size="9x9"] td:nth-child(3n) {
     border-right: 2px solid #333;
   }
-  
+    
   @media print {
     .sudoku-page {
       padding: 0;
@@ -110,7 +115,8 @@
     }
     
     .boards-container {
-      grid-template-columns: repeat(var(--columns), 1fr) !important;
+      /* Ustawiamy dwie kolumny, aby na jednej stronie A4 były dwie plansze */
+      grid-template-columns: repeat(2, 1fr) !important;
       gap: 5mm;
     }
     
@@ -118,11 +124,12 @@
       box-shadow: none;
       page-break-inside: avoid;
       break-inside: avoid;
-      padding: 0;
+      padding: 2mm;
     }
     
     td {
-      font-size: 10px;
+      /* Zwiększamy czytelność cyfr w druku */
+      font-size: 20px;
       border-width: 0.5px !important;
     }
     
@@ -131,3 +138,4 @@
       border-width: 1.5px !important;
     }
   }
+  
