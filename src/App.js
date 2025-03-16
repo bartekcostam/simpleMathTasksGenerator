@@ -13,6 +13,7 @@ import Clock from './pages/Clock';
 import ThermometerPage from './pages/ThermometerPage';
 import NumberAxis from './pages/NumberAxis';
 import Sudoku from './pages/Sudoku';
+import Multiplication from './pages/Multiplication'
 
 
 function App() {
@@ -33,6 +34,8 @@ function App() {
       <Route path="/thermometer" element={<ThermometerPage />} />
       <Route path="/numberaxis" element={<NumberAxis />} />
       <Route path="/sudoku" element={<Sudoku />} />
+      <Route path="/multiplication" element={<Multiplication />} />
+
 
     </Routes>
     

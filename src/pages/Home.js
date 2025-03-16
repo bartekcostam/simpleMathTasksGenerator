@@ -10,6 +10,8 @@ const Home = () => {
     <hr></hr>
     <a href="/generatesubstractions">Generate substraction </a>
     <hr></hr>
+    <a href="/multiplication">Multiplication</a>
+    <hr></hr>
     <a href="/numberlist">Number list</a>
     <hr></hr>
     <a href="/missingnumbers">Missing numbers</a>
