@@ -1,0 +1,106 @@
+/* src/pages/GenerateDivisions.css */
+.division-page main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .division-page form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .division-page label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .division-page input[type="number"] {
+    width: 100px;
+    padding: 5px;
+  }
+  
+  .division-tasks {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .task-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .equation {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  .circle-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  
+  .circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid #000;
+    position: relative;
+    overflow: hidden;
+    background-color: #fff;
+    box-sizing: border-box;
+  }
+  
+  .circle-part {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    left: 50%;
+    top: 0;
+    transform-origin: left bottom;
+    border-right: 2px solid #000 !important;
+    box-sizing: border-box;
+  }
+  
+  .result {
+    font-size: 1.2em;
+    color: #2c3e50;
+    font-weight: bold;
+  }
+  
+  .checkbox-label {
+    flex-direction: row !important;
+    align-items: center;
+  }
+  
+  @media print {
+    .division-tasks {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    
+    .task-container {
+      page-break-inside: avoid;
+      break-inside: avoid;
+      border: none;
+      padding: 5px;
+    }
+    
+    .circle {
+      width: 60px;
+      height: 60px;
+    }
+  }

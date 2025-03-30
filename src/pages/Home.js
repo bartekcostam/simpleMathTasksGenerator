@@ -31,6 +31,8 @@ const Home = () => {
     <a href="/numberaxis">Number axis</a>
     <hr></hr>
     <a href="/sudoku">Sudoku</a>
+    <hr></hr>
+    <a href="/division">Division</a>
 
 
 
