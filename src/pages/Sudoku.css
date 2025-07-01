@@ -1,141 +1,158 @@
-/* src/pages/Sudoku.css */
 @page {
-    size: A4;
-    margin: 5mm;
-  }
-  
-  .sudoku-page {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-    
-  .controls {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin-bottom: 30px;
-  }
-    
-  .controls label {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    font-size: 14px;
-  }
-    
-  .controls input,
-  .controls select {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-    
-  button {
-    grid-column: 1 / -1;
-    padding: 10px 20px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-    
+  size: A4;
+  margin: 5mm;
+}
+
+.sudoku-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 5px;
+}
+
+.controls input,
+.controls select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+button {
+  grid-column: 1 / -1;
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.boards-container {
+  display: grid;
+  gap: 20px;
+  width: 100%;
+}
+
+.sudoku-board {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.sudoku-board h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* procentowe wiersze/kolumny dla każdego rozmiaru */
+.size-44 table tr { height: calc(100% / 4); }
+.size-44 td       { width:  calc(100% / 4); }
+
+.size-66 table tr { height: calc(100% / 6); }
+.size-66 td       { width:  calc(100% / 6); }
+
+.size-99 table tr { height: calc(100% / 9); }
+.size-99 td       { width:  calc(100% / 9); }
+
+/* tabela */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 2px solid #333;
+  table-layout: fixed;
+}
+
+/* tylko na ekranie — kwadrat w podglądzie */
+@media screen {
+  table { aspect-ratio: 1; }
+}
+
+td {
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: min(2vw,16px);
+  position: relative;
+}
+
+/* grube linie bloków */
+.thick-right { border-right: 2px solid #333; }
+.thick-bottom{ border-bottom:2px solid #333; }
+
+/* ---------------- DRUK ---------------- */
+.page {
+  /* każda ".page" to osobna kartka */
+  page-break-after: always;
+}
+
+@media print {
+  h1, h3, .controls { display: none; }
+  body, .sudoku-page { margin: 0; padding: 0; }
+
   .boards-container {
-    display: grid;
-    gap: 20px;
-    width: 100%;
+    gap: 1mm !important;
   }
-    
+
   .sudoku-board {
+    box-shadow: none;
+    padding: 1mm;
+    margin: 0;
     break-inside: avoid;
     page-break-inside: avoid;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
-    
-  .sudoku-board h3 {
-    margin: 0 0 10px 0;
-    font-size: 14px;
-    color: #666;
-  }
-    
+
   table {
-    border-collapse: collapse;
     width: 100%;
-    aspect-ratio: 1;
-    border: 2px solid #333;
+    height: 100%;
+    table-layout: fixed !important;
+    border: 1.2px solid #000 !important;
   }
-    
+
   td {
-    border: 1px solid #ddd;
-    text-align: center;
-    position: relative;
-    font-size: min(2vw, 16px);
-    width: 11.11%;
-    height: 11.11%;
+    font-size: 30px !important;
+    border-width: 0.5px !important;
   }
-    
-  /* Style dla różnych rozmiarów plansz */
-  .sudoku-board[data-size="4x4"] tr:nth-child(2n) td {
-    border-bottom: 2px solid #333;
+
+  .thick-right { border-right: 2px solid #000 !important; }
+  .thick-bottom{ border-bottom: 2px solid #000 !important; }
+
+  /* 4×4 → 2×3 */
+  .size-44 .boards-container {
+    grid-template-columns: repeat(2,1fr) !important;
+    grid-template-rows:    repeat(3,1fr) !important;
+    height:                calc(297mm - 10mm) !important;
   }
-    
-  .sudoku-board[data-size="4x4"] td:nth-child(2n) {
-    border-right: 2px solid #333;
+
+  /* 6×6 → 2×2 + padding góra/dół */
+  .size-66 .boards-container {
+    grid-template-columns: repeat(2,1fr) !important;
+    grid-template-rows:    repeat(2,1fr) !important;
+    height:                calc(297mm - 10mm) !important;
+    padding:               10mm 0 !important;
   }
-    
-  .sudoku-board[data-size="6x6"] tr:nth-child(3n) td {
-    border-bottom: 2px solid #333;
+
+  /* 9×9 → 1×2 */
+  .size-99 .boards-container {
+    grid-template-columns: 1fr !important;
+    grid-template-rows:    repeat(2,1fr) !important;
+    height:                calc(297mm - 10mm) !important;
   }
-    
-  .sudoku-board[data-size="6x6"] td:nth-child(3n) {
-    border-right: 2px solid #333;
-  }
-    
-  .sudoku-board[data-size="9x9"] tr:nth-child(3n) td {
-    border-bottom: 2px solid #333;
-  }
-    
-  .sudoku-board[data-size="9x9"] td:nth-child(3n) {
-    border-right: 2px solid #333;
-  }
-    
-  @media print {
-    .sudoku-page {
-      padding: 0;
-    }
-    
-    .controls {
-      display: none;
-    }
-    
-    .boards-container {
-      /* Ustawiamy dwie kolumny, aby na jednej stronie A4 były dwie plansze */
-      grid-template-columns: repeat(2, 1fr) !important;
-      gap: 5mm;
-    }
-    
-    .sudoku-board {
-      box-shadow: none;
-      page-break-inside: avoid;
-      break-inside: avoid;
-      padding: 2mm;
-    }
-    
-    td {
-      /* Zwiększamy czytelność cyfr w druku */
-      font-size: 20px;
-      border-width: 0.5px !important;
-    }
-    
-    .thick-right,
-    .thick-bottom {
-      border-width: 1.5px !important;
-    }
-  }
-  
+}

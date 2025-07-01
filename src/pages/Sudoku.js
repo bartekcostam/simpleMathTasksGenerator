@@ -1,251 +1,184 @@
-// src/pages/Sudoku.js
 import React, { useState } from 'react';
-import { makepuzzle, solvepuzzle } from 'sudoku';
 import { shuffle } from 'lodash-es';
 import './Sudoku.css';
 
 const Sudoku = () => {
   const [settings, setSettings] = useState({
+    gridSize: '9x9',       // '4x4' | '6x6' | '9x9'
     numberOfBoards: 1,
     columns: 2,
-    difficulty: 50,
-    gridSize: '9x9'
+    difficulty: 50         // procent wypełnienia
   });
-
   const [boards, setBoards] = useState([]);
 
-  // Funkcja generująca poprawne rozwiązanie dla plansz niestandardowych (4x4, 6x6)
+  // BACKTRACKING: generuje pełne rozwiązanie
   const generateValidSolution = (size) => {
     const [rows, cols] = size.split('x').map(Number);
     let blockRows, blockCols;
-    if (size === "4x4") {
-      blockRows = 2;
-      blockCols = 2;
-    } else if (size === "6x6") {
-      // W wariancie 6x6 sudoku przyjmujemy bloki 2x3
-      blockRows = 2;
-      blockCols = 3;
-    } else {
-      // Fallback - choć nie używamy tego dla 9x9, bo tam korzystamy z biblioteki
-      blockRows = Math.sqrt(rows);
-      blockCols = Math.sqrt(cols);
-    }
-    
-    // Przygotowanie pustej planszy (macierz rows x cols)
-    const board = Array.from({ length: rows }, () => Array(cols).fill(0));
-    const numbers = Array.from({ length: rows }, (_, i) => i + 1);
+    if (size === '4x4')      { blockRows = 2; blockCols = 2; }
+    else if (size === '6x6') { blockRows = 2; blockCols = 3; }
+    else                     { blockRows = 3; blockCols = 3; }
 
-    // Funkcja mieszająca tablicę
-    const shuffleArray = (array) => {
-      return array.sort(() => Math.random() - 0.5);
+    const board = Array.from({ length: rows }, () => Array(cols).fill(0));
+    const nums  = Array.from({ length: rows }, (_, i) => i + 1);
+
+    const isSafe = (r, c, n) => {
+      for (let i = 0; i < cols; i++) if (board[r][i] === n) return false;
+      for (let i = 0; i < rows; i++) if (board[i][c] === n) return false;
+      const sr = r - (r % blockRows), sc = c - (c % blockCols);
+      for (let i = 0; i < blockRows; i++)
+        for (let j = 0; j < blockCols; j++)
+          if (board[sr + i][sc + j] === n) return false;
+      return true;
     };
 
-    // Sprawdzenie, czy można umieścić liczbę num w komórce (row, col)
-    const isSafe = (board, row, col, num) => {
-      // Sprawdzenie wiersza
-      for (let x = 0; x < cols; x++) {
-        if (board[row][x] === num) return false;
-      }
-      // Sprawdzenie kolumny
-      for (let x = 0; x < rows; x++) {
-        if (board[x][col] === num) return false;
-      }
-      // Sprawdzenie bloku
-      const startRow = row - (row % blockRows);
-      const startCol = col - (col % blockCols);
-      for (let i = 0; i < blockRows; i++) {
-        for (let j = 0; j < blockCols; j++) {
-          if (board[startRow + i][startCol + j] === num) return false;
+    const solve = () => {
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          if (board[r][c] === 0) {
+            for (let n of shuffle(nums)) {
+              if (isSafe(r, c, n)) {
+                board[r][c] = n;
+                if (solve()) return true;
+                board[r][c] = 0;
+              }
+            }
+            return false;
+          }
         }
       }
       return true;
     };
 
-    // Algorytm backtrackingowy do wypełnienia planszy
-    const solve = () => {
-      for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
-          if (board[i][j] === 0) {
-            let shuffledNumbers = shuffleArray([...numbers]);
-            for (let num of shuffledNumbers) {
-              if (isSafe(board, i, j, num)) {
-                board[i][j] = num;
-                if (solve()) {
-                  return true;
-                } else {
-                  board[i][j] = 0;
-                }
-              }
-            }
-            return false; // brak poprawnej liczby – cofamy się
-          }
-        }
-      }
-      return true; // plansza wypełniona
-    };
-
     solve();
-    return board.flat(); // zwracamy spłaszczoną planszę
+    return board.flat();
   };
 
-  const generateClassicSudoku = (percentage) => {
-    const puzzle = makepuzzle();
-    const solution = solvepuzzle(puzzle);
-    const targetClues = Math.round(81 * (percentage / 100));
-
-    return {
-      puzzle: puzzle.map(cell => cell !== null ? cell + 1 : ''),
-      solution: solution.map(cell => cell + 1),
-      rows: 9,
-      cols: 9,
-      blockSize: 3
-    };
-  };
-
-  const generateCustomSudoku = (size, percentage) => {
+  // Tworzy puzzle wg % wypełnienia
+  const generatePuzzle = (size, pct) => {
     const [rows, cols] = size.split('x').map(Number);
-    const solution = generateValidSolution(size);
-    const puzzle = [...solution];
-    const totalCells = rows * cols;
-    const cellsToKeep = Math.round(totalCells * (percentage / 100));
-    
-    // Usuwanie komórek z zachowaniem minimalnej liczby wskazówek
-    const indices = shuffle(Array.from({ length: totalCells }, (_, i) => i))
-      .slice(0, totalCells - cellsToKeep);
-
-    indices.forEach(idx => {
-      puzzle[idx] = '';
-    });
+    const sol   = generateValidSolution(size);
+    const total = rows * cols;
+    const clues = Math.round(total * (pct / 100));
+    const puzzle = [...sol];
+    const toRemove = shuffle(Array.from({ length: total }, (_, i) => i))
+                       .slice(0, total - clues);
+    toRemove.forEach(i => puzzle[i] = '');
 
     return {
       puzzle,
-      solution,
-      rows,
-      cols,
-      // Dla 6x6 sudoku przyjmujemy, że linie oddzielające bloki pojawiają się co 2 wiersze (dla 4x4 – 2, dla 9x9 – 3)
-      blockSize: settings.gridSize === "6x6" ? 2 : Math.sqrt(rows)
+      solution: sol,
+      rows, cols,
+      blockRows: size==='6x6'?2:Math.sqrt(rows),
+      blockCols: size==='6x6'?3:Math.sqrt(cols)
     };
   };
 
-  const handleGenerate = (e) => {
+  // Generuj i ustaw w stanie
+  const handleGenerate = e => {
     e.preventDefault();
-    const newBoards = [];
-    
+    const arr = [];
     for (let i = 0; i < settings.numberOfBoards; i++) {
-      const board = settings.gridSize === '9x9' 
-        ? generateClassicSudoku(settings.difficulty)
-        : generateCustomSudoku(settings.gridSize, settings.difficulty);
-      newBoards.push(board);
+      arr.push(generatePuzzle(settings.gridSize, settings.difficulty));
     }
-    
-    setBoards(newBoards);
+    setBoards(arr);
   };
 
-  const handleSettingChange = (name, value) => {
+  const handleSettingChange = (name, val) => {
     setSettings(prev => ({
       ...prev,
-      [name]: name === 'gridSize' ? value : 
-              ['numberOfBoards', 'columns', 'difficulty'].includes(name) ? Math.max(0, Number(value)) : value
+      [name]: ['numberOfBoards','columns','difficulty'].includes(name)
+        ? Math.max(1, Number(val))
+        : val
     }));
   };
 
-  // Funkcja do określenia rozmiaru bloku przy renderowaniu (do wyznaczania grubych linii)
-  const getBlockSize = (size) => {
-    switch (size) {
-      case '4x4': return 2;
-      case '6x6': return 2; // dla 6x6, ze względu na bloki 2x3, chcemy wyznaczać linie co 2 komórki
-      case '9x9': return 3;
-      default: return 3;
-    }
-  };
+  // Ile plansz na stronę?
+  const perPage = settings.gridSize === '4x4' ? 6
+                : settings.gridSize === '6x6' ? 4
+                : 2;
+  // Podziel na "strony"
+  const pages = [];
+  for (let i = 0; i < boards.length; i += perPage) {
+    pages.push(boards.slice(i, i + perPage));
+  }
 
   return (
-    <div className="sudoku-page">
+    <div className={`sudoku-page size-${settings.gridSize.replace('x','')}`}>
       <h1>Generator Sudoku</h1>
       <form onSubmit={handleGenerate}>
         <div className="controls">
           <label>
-            Rozmiar planszy:
-            <select 
+            Rozmiar:
+            <select
               value={settings.gridSize}
-              onChange={(e) => handleSettingChange('gridSize', e.target.value)}
+              onChange={e => handleSettingChange('gridSize', e.target.value)}
             >
-              <option value="4x4">4x4 (łatwy)</option>
-              <option value="6x6">6x6 (średni)</option>
-              <option value="9x9">9x9 (trudny)</option>
+              <option value="4x4">4×4</option>
+              <option value="6x6">6×6</option>
+              <option value="9x9">9×9</option>
             </select>
           </label>
           <label>
-            Ilość plansz:
+            Ilość:
             <input
-              type="number"
+              type="number" min="1"
               value={settings.numberOfBoards}
-              onChange={(e) => handleSettingChange('numberOfBoards', e.target.value)}
-              min="1"
+              onChange={e => handleSettingChange('numberOfBoards', e.target.value)}
             />
           </label>
           <label>
-            Kolumny:
+            Kolumny (podgląd):
             <input
-              type="number"
+              type="number" min="1"
               value={settings.columns}
-              onChange={(e) => handleSettingChange('columns', e.target.value)}
-              min="1"
+              onChange={e => handleSettingChange('columns', e.target.value)}
             />
           </label>
           <label>
-            Wypełnienie (%):
+            % fill:
             <input
-              type="number"
+              type="number" min="20" max="80"
               value={settings.difficulty}
-              onChange={(e) => handleSettingChange('difficulty', e.target.value)}
-              min="20"
-              max="80"
+              onChange={e => handleSettingChange('difficulty', e.target.value)}
             />
           </label>
           <button type="submit">Generuj</button>
         </div>
       </form>
-      
-      <div 
-        className="boards-container" 
-        style={{ gridTemplateColumns: `repeat(${settings.columns}, 1fr)` }}
-      >
-        {boards.map((board, index) => {
-          const blockSize = getBlockSize(settings.gridSize);
-          return (
-            <div 
-              key={index} 
-              className="sudoku-board"
-              data-size={settings.gridSize}
-            >
-              <h3>Sudoku #{index + 1} ({settings.gridSize})</h3>
-              <table>
-                <tbody>
-                  {Array.from({ length: board.rows || board.puzzle.length / (board.cols || (settings.gridSize === '9x9' ? 9 : parseInt(settings.gridSize))) }).map((_, rowIndex) => (
-                    <tr 
-                      key={rowIndex} 
-                      className={(rowIndex + 1) % blockSize === 0 ? 'thick-bottom' : ''}
-                    >
-                      {Array.from({ length: board.cols || (settings.gridSize === '9x9' ? 9 : parseInt(settings.gridSize)) }).map((_, cellIndex) => {
-                        const value = board.puzzle[rowIndex * (board.cols || (settings.gridSize === '9x9' ? 9 : parseInt(settings.gridSize))) + cellIndex];
-                        return (
-                          <td 
-                            key={cellIndex} 
-                            className={(cellIndex + 1) % blockSize === 0 ? 'thick-right' : ''}
-                          >
-                            {value || ''}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          );
-        })}
-      </div>
+
+      {pages.map((pageBoards, pi) => (
+        <div key={pi} className="page">
+          <div
+            className="boards-container"
+            style={{ gridTemplateColumns: `repeat(${settings.columns},1fr)` }}
+          >
+            {pageBoards.map((b, bi) => (
+              <div key={bi} className="sudoku-board" data-size={settings.gridSize}>
+                <h3>#{pi*perPage + bi + 1} ({settings.gridSize})</h3>
+                <table>
+                  <tbody>
+                    {Array.from({ length: b.rows }).map((_, r) => (
+                      <tr key={r}
+                          className={((r + 1) % b.blockRows === 0) ? 'thick-bottom' : ''}>
+                        {Array.from({ length: b.cols }).map((_, c) => {
+                          const v = b.puzzle[r * b.cols + c];
+                          return (
+                            <td key={c}
+                                className={((c + 1) % b.blockCols === 0) ? 'thick-right' : ''}>
+                              {v || ''}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
