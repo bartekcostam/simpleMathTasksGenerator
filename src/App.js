@@ -15,6 +15,7 @@ import NumberAxis from './pages/NumberAxis';
 import Sudoku from './pages/Sudoku';
 import Multiplication from './pages/Multiplication'
 import GenerateDivisions from './pages/GenerateDivisions';
+import ShapesGenerator from './pages/ShapesGenerator';
 
 
 
@@ -38,6 +39,7 @@ function App() {
       <Route path="/sudoku" element={<Sudoku />} />
       <Route path="/multiplication" element={<Multiplication />} />
       <Route path="/division" element={<GenerateDivisions />} />
+      <Route path="/shapesgenerator" element={<ShapesGenerator/>} />
 
 
 

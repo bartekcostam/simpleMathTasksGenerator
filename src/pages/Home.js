@@ -33,6 +33,8 @@ const Home = () => {
     <a href="/sudoku">Sudoku</a>
     <hr></hr>
     <a href="/division">Division</a>
+    <hr></hr>
+    <a href="/shapesgenerator">Shapes Generator</a>
 
 
 
