@@ -16,6 +16,7 @@ import Sudoku from './pages/Sudoku';
 import Multiplication from './pages/Multiplication'
 import GenerateDivisions from './pages/GenerateDivisions';
 import ShapesGenerator from './pages/ShapesGenerator';
+import GenerateDecimalCalculations from './pages/GenerateDecimalCalculations';
 
 
 
@@ -40,6 +41,8 @@ function App() {
       <Route path="/multiplication" element={<Multiplication />} />
       <Route path="/division" element={<GenerateDivisions />} />
       <Route path="/shapesgenerator" element={<ShapesGenerator/>} />
+      <Route path="/generatedecimal" element={<GenerateDecimalCalculations />} />
+
 
 
 

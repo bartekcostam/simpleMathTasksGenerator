@@ -1,0 +1,77 @@
+.decimal-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+.decimal-form {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  background: #fafafa;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-row label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.form-row input[type="number"],
+.form-row select {
+  width: 80px;
+  padding: 4px;
+}
+
+.btn-generate,
+.btn-answers {
+  padding: 6px 12px;
+  margin-left: auto;
+  cursor: pointer;
+  border: 1px solid #007acc;
+  background: #e6f7ff;
+  border-radius: 4px;
+}
+.btn-answers {
+  margin: 20px 0;
+}
+
+.tasks-section, .answers-section {
+  margin-top: 30px;
+}
+
+.tasks-list {
+  list-style: none;
+  padding: 0;
+  column-count: 3;
+  column-gap: 20px;
+}
+
+.tasks-list li {
+  margin-bottom: 8px;
+  break-inside: avoid;
+}
+
+.answers-list {
+  column-count: 3;
+  column-gap: 20px;
+}
+
+.answers-list > div {
+  margin-bottom: 8px;
+  break-inside: avoid;
+}
+
+.answers-control {
+  text-align: center;
+}

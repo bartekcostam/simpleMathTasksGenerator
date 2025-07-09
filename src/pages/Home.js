@@ -35,6 +35,8 @@ const Home = () => {
     <a href="/division">Division</a>
     <hr></hr>
     <a href="/shapesgenerator">Shapes Generator</a>
+    <hr />
+    <a href="/generatedecimal">Generate decimal</a>
 
 
 
