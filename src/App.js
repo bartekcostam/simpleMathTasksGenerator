@@ -1,6 +1,5 @@
 import './App.css';
 import {Routes, Route} from 'react-router-dom'
-import {useState} from 'react'
 import NumberList from './pages/NumberList';
 import GenerateCalculations from './pages/GenerateCalculations';
 import GenerateSubstractions from './pages/GenerateSubstractions';
@@ -17,6 +16,7 @@ import Multiplication from './pages/Multiplication'
 import GenerateDivisions from './pages/GenerateDivisions';
 import ShapesGenerator from './pages/ShapesGenerator';
 import GenerateDecimalCalculations from './pages/GenerateDecimalCalculations';
+import FractionsGenerator from './pages/FractionsGenerator';
 
 
 
@@ -42,6 +42,7 @@ function App() {
       <Route path="/division" element={<GenerateDivisions />} />
       <Route path="/shapesgenerator" element={<ShapesGenerator/>} />
       <Route path="/generatedecimal" element={<GenerateDecimalCalculations />} />
+      <Route path="/fractionsgenerator" element={<FractionsGenerator />} />
 
 
 

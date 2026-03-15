@@ -1,0 +1,244 @@
+.fraction-page {
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.fraction-layout {
+  display: grid;
+  gap: 24px;
+}
+
+.fractions-controls {
+  background: #f5f7fb;
+  border: 1px solid #d7dce5;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.fraction-header h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+}
+
+.fraction-header p {
+  margin: 0 0 20px;
+  color: #4c5668;
+  font-size: 16px;
+}
+
+.fractions-form {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  align-items: end;
+}
+
+.fractions-form label {
+  display: grid;
+  gap: 8px;
+  font-size: 15px;
+  color: #1f2937;
+}
+
+.fractions-form input,
+.fractions-form select {
+  border: 1px solid #b9c3d3;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 16px;
+  background: #ffffff;
+}
+
+.checkbox-field {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+}
+
+.checkbox-field input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.fractions-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fractions-worksheet {
+  background: #ffffff;
+  border: 1px solid #d7dce5;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.worksheet-meta h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.worksheet-meta p {
+  margin: 8px 0 16px;
+  color: #4c5668;
+}
+
+.worksheet-message {
+  margin: 0 0 18px;
+  color: #253041;
+}
+
+.fractions-sheet {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 28px;
+}
+
+.task-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 42px;
+  break-inside: avoid;
+}
+
+.task-number {
+  width: 32px;
+  flex-shrink: 0;
+  font-size: 14px;
+  color: #4c5668;
+}
+
+.fraction-task {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  line-height: 1;
+  flex-wrap: wrap;
+}
+
+.fraction {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  min-width: 36px;
+  text-align: center;
+}
+
+.fraction-top {
+  display: block;
+  padding: 0 6px 2px;
+}
+
+.fraction-bottom {
+  display: block;
+  border-top: 2px solid #111827;
+  padding: 2px 6px 0;
+}
+
+.whole-number,
+.task-symbol,
+.answer-slot {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+}
+
+.compare-symbol {
+  min-width: 26px;
+  justify-content: center;
+}
+
+.answer-slot {
+  min-width: 48px;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 900px) {
+  .fraction-page {
+    padding: 12px;
+  }
+
+  .fractions-sheet {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+
+  body {
+    margin: 0;
+    background: #ffffff;
+  }
+
+  .fraction-page {
+    padding: 0;
+  }
+
+  .fractions-controls {
+    display: none;
+  }
+
+  .fractions-worksheet {
+    border: none;
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .worksheet-message {
+    display: none;
+  }
+
+  .worksheet-meta h2 {
+    font-size: 18px;
+  }
+
+  .worksheet-meta p {
+    margin-bottom: 12px;
+    font-size: 11px;
+  }
+
+  .fractions-sheet {
+    gap: 8px 18px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .task-card {
+    min-height: 28px;
+    gap: 8px;
+  }
+
+  .task-number {
+    width: 24px;
+    font-size: 11px;
+  }
+
+  .fraction-task {
+    gap: 8px;
+    font-size: 18px;
+  }
+
+  .fraction {
+    min-width: 28px;
+  }
+
+  .fraction-top {
+    padding: 0 4px 1px;
+  }
+
+  .fraction-bottom {
+    padding: 1px 4px 0;
+  }
+
+  .answer-slot {
+    min-width: 40px;
+  }
+}
